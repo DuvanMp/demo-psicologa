@@ -3,8 +3,8 @@
 // (y las fotos en images.js). Todo lo que está aquí es ficticio.
 // ─────────────────────────────────────────────────────────────
 export const site = {
-  name: 'Ps. Mariana Ríos',
-  firstName: 'Mariana',
+  name: 'Ps. Silvia Fernanda',
+  firstName: 'Silvia Fernanda',
   title: 'Psicóloga clínica',
   license: 'Tarjeta profesional N.º 000000',
   // WhatsApp en formato internacional, sin "+" ni espacios
