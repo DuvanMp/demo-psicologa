@@ -4,10 +4,11 @@ const u = (id, w = 1200, extra = '') =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&q=75&w=${w}${extra}`
 
 export const img = {
+  // "mobile" = qué parte de la foto se ve en el celular (horizontal vertical)
   hero: [
-    u('1758273241086-f3585ef8c2f8', 2000),
-    u('1628645339131-0c39c7527856', 2000),
-    u('1714976694867-bc0e012fab70', 2000),
+    { src: u('1758273241086-f3585ef8c2f8', 2000), mobile: '22% 30%' },
+    { src: u('1628645339131-0c39c7527856', 2000), mobile: '42% 30%' },
+    { src: u('1714976694867-bc0e012fab70', 2000), mobile: '72% 30%' },
   ],
   portrait: u('1733685373178-b49c3943ccef', 900, '&h=1100&crop=faces'),
   online: u('1713946598526-357e3baaff04', 1200, '&h=900'),

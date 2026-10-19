@@ -183,10 +183,15 @@ legend { font-family: var(--display); font-size: 1.25rem; color: var(--ink); mar
   .nav a:not(.btn) { padding: 12px 0; font-size: 1.0625rem; }
   .header .nav .btn { margin-top: 8px; background: var(--ink); color: #fff; }
   .brand span { font-size: 1.125rem; }
+  .hero-bg img { object-position: var(--mobile-pos, 50% 30%); }
   .hero-shade { background: linear-gradient(0deg, rgba(28, 44, 37, .95) 0%, rgba(28, 44, 37, .7) 55%, rgba(28, 44, 37, .25) 100%); }
   .hero-content { padding: 120px 0 72px; }
   .section { padding: 72px 0; }
   .about-photo::before { inset: 16px -12px -16px 12px; }
   .area-grid, .row, .contact-grid { grid-template-columns: 1fr; }
+  .area-card img { aspect-ratio: 16 / 9; }
+  .fab { width: 52px; height: 52px; right: 14px; bottom: 14px; }
+  .fab svg { width: 26px; height: 26px; }
+  body { padding-bottom: 72px; }
   .card { padding: 22px; }
 }

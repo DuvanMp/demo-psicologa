@@ -76,7 +76,7 @@ function Hero({ onBook }) {
   return (
     <section className="hero">
       <div className="hero-bg" aria-hidden="true">
-        {img.hero.map((src, n) => <img key={src} src={src} alt="" className={n === i ? 'on' : ''} />)}
+        {img.hero.map((h, n) => <img key={h.src} src={h.src} alt="" className={n === i ? 'on' : ''} style={{ '--mobile-pos': h.mobile }} />)}
       </div>
       <div className="hero-shade" aria-hidden="true" />
       <div className="wrap hero-content">
