@@ -3,8 +3,8 @@
 // (y las fotos en images.js). Todo lo que está aquí es ficticio.
 // ─────────────────────────────────────────────────────────────
 export const site = {
-  name: 'Ps. Silvia Fernanda',
-  firstName: 'Silvia Fernanda',
+  name: 'Ps. Silvia Celis',
+  firstName: 'Silvia Celis',
   title: 'Psicóloga clínica',
   license: 'Tarjeta profesional N.º 000000',
   // WhatsApp en formato internacional, sin "+" ni espacios
@@ -27,8 +27,8 @@ export const site = {
   // Mensaje para personas en crisis (se muestra en el pie y en la agenda)
   crisis: 'Si estás en una crisis o en riesgo, no esperes una cita: llama a la línea de emergencias 123 o acude a urgencias.',
   theme: {
-    ink: '#2F4A3F',
-    accent: '#B9714F',
-    soft: '#E7EDE6',
+    ink: '#6B4F55',
+    accent: '#8A5D61',
+    soft: '#F4E8E5',
   },
 }
