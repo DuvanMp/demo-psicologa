@@ -32,8 +32,7 @@ export const content = {
       ],
       credentials: [
         'Psicóloga · Universidad Cooperativa de Colombia',
-        'Formación en terapia de pareja',
-        'Atención en español e inglés',
+        'Atención en español',
       ],
     },
     areasTitle: 'Cómo te puedo ayudar',
@@ -91,7 +90,7 @@ export const content = {
       ['¿Lo que hablemos es confidencial?', 'Siempre. Todo lo que compartes en sesión está protegido por el secreto profesional, salvo las excepciones que establece la ley para proteger tu vida o la de otras personas.'],
       ['¿Cuántas sesiones voy a necesitar?', 'Depende de cada persona y de lo que quieras trabajar. En la primera sesión definimos objetivos juntas y revisamos el avance periódicamente.'],
       ['¿Cómo se paga?', 'Por transferencia, Nequi, Daviplata o tarjeta. Si vives fuera de Colombia, también puedes pagar desde el exterior.'],
-      ['¿Atiendes a personas fuera de Colombia?', 'Sí. Muchas personas que viven en otros países prefieren hacer terapia en español con alguien que entiende su cultura. También atiendo en inglés.'],
+      ['¿Atiendes a personas fuera de Colombia?', 'Sí. Muchas personas que viven en otros países prefieren hacer terapia en español con alguien que entiende su cultura.'],
     ],
     contactTitle: 'Aquí estoy cuando lo necesites',
     hoursTitle: 'Horario',
@@ -132,8 +131,7 @@ export const content = {
       ],
       credentials: [
         'Psychologist · Universidad Cooperativa de Colombia',
-        'Training in couples therapy',
-        'Sessions in English and Spanish',
+        'Sessions in Spanish',
       ],
     },
     areasTitle: 'How I can help',
@@ -150,7 +148,7 @@ export const content = {
     online: {
       alt: 'Person in a video therapy session at home',
       title: 'Therapy from home',
-      body: 'No traffic, no waiting rooms. Join from a private place where you feel comfortable, on Google Meet or Zoom. I work with clients in Colombia and abroad, in English or Spanish.',
+      body: 'No traffic, no waiting rooms. Join from a private place where you feel comfortable, on Google Meet or Zoom. I work with clients in Colombia and abroad. Sessions are in Spanish.',
       individual: 'Individual session · 50 min',
       couple: 'Couples session · 60 min',
       first: 'Intro call · 15 min',
@@ -183,7 +181,7 @@ export const content = {
       confirm: 'Confirm on WhatsApp',
       error: 'Choose a day and time, and enter your name and phone.',
       msg: ({ name, first, topic, day, time, client, phone }) =>
-        `Hi ${name}, I’d like to book ${first ? 'the free intro call' : 'a session'} (in English).\n\n${topic ? `Topic: ${topic}\n` : ''}Day: ${day}\nTime: ${time} (Colombia)\nName: ${client}\nPhone: ${phone}`,
+        `Hi ${name}, I’d like to book ${first ? 'the free intro call' : 'a session'}.\n\n${topic ? `Topic: ${topic}\n` : ''}Day: ${day}\nTime: ${time} (Colombia)\nName: ${client}\nPhone: ${phone}`,
     },
     faqTitle: 'Frequently asked questions',
     faq: [
@@ -191,7 +189,7 @@ export const content = {
       ['Is what we talk about confidential?', 'Always. Everything you share in session is protected by professional confidentiality, except for the legal exceptions that exist to protect your life or the lives of others.'],
       ['How many sessions will I need?', 'It depends on each person and what you want to work on. In the first session we set goals together and review progress regularly.'],
       ['How do I pay?', 'By bank transfer or card. If you live outside Colombia, you can also pay from abroad.'],
-      ['Do you work with people outside Colombia?', 'Yes. I see clients from other countries by video call, in English or Spanish.'],
+      ['Do you work with people outside Colombia?', 'Yes. I see clients from other countries by video call. Please note that sessions are in Spanish.'],
     ],
     contactTitle: 'I’m here when you need me',
     hoursTitle: 'Hours',
