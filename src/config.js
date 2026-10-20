@@ -7,12 +7,12 @@ export const site = {
   name: 'Ps. Silvia Celis',
   firstName: 'Silvia Celis',
   title: { es: 'Psicóloga', en: 'Psychologist' },
-  license: { es: 'Tarjeta profesional N.º 000000', en: 'Professional license No. 000000' },
+  license: { es: 'Tarjeta profesional N.º 243638', en: 'Professional license No. 243638' },
   // WhatsApp en formato internacional, sin "+" ni espacios
-  whatsapp: '573246853552',
-  phoneDisplay: '+57 324 685 3552',
+  whatsapp: '573103156385',
+  phoneDisplay: '+57 310 315 6385',
   email: 'hola@ejemplo.com',
-  instagram: 'https://instagram.com/',
+  instagram: 'https://www.instagram.com/psicologasilviacelis_/',
   city: { es: 'Atención virtual desde Colombia', en: 'Online sessions from Colombia' },
   hours: {
     es: ['Lunes a viernes · 7:00 a. m. – 8:00 p. m.', 'Sábados · 8:00 a. m. – 1:00 p. m.'],

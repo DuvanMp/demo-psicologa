@@ -31,7 +31,7 @@ export const content = {
         'Trabajo desde un enfoque cognitivo-conductual, integrando herramientas prácticas para el día a día con un espacio cálido, sin juicios, donde puedas hablar con tranquilidad.',
       ],
       credentials: [
-        'Psicóloga · Universidad (ficticia)',
+        'Psicóloga · Universidad Cooperativa de Colombia',
         'Formación en terapia de pareja',
         'Atención en español e inglés',
       ],
@@ -131,7 +131,7 @@ export const content = {
         'I use a cognitive-behavioral approach, combining practical tools for everyday life with a warm, judgment-free space where you can talk openly.',
       ],
       credentials: [
-        'Psychologist · University (placeholder)',
+        'Psychologist · Universidad Cooperativa de Colombia',
         'Training in couples therapy',
         'Sessions in English and Spanish',
       ],
