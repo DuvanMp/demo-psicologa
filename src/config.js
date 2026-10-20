@@ -11,7 +11,7 @@ export const site = {
   // WhatsApp en formato internacional, sin "+" ni espacios
   whatsapp: '573103156385',
   phoneDisplay: '+57 310 315 6385',
-  email: 'hola@ejemplo.com',
+  email: 'sfernandacd@gmail.com',
   instagram: 'https://www.instagram.com/psicologasilviacelis_/',
   city: { es: 'Atención virtual desde Colombia', en: 'Online sessions from Colombia' },
   hours: {
