@@ -5,7 +5,7 @@
 export const site = {
   name: 'Ps. Silvia Celis',
   firstName: 'Silvia Celis',
-  title: 'Psicóloga clínica',
+  title: 'Psicóloga',
   license: 'Tarjeta profesional N.º 000000',
   // WhatsApp en formato internacional, sin "+" ni espacios
   whatsapp: '573246853552',

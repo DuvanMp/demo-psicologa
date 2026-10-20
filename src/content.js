@@ -25,12 +25,11 @@ export const steps = [
 
 export const about = {
   body: [
-    'Soy psicóloga clínica y acompaño a adultos, parejas y adolescentes que están pasando por momentos difíciles o que simplemente quieren entenderse mejor.',
+    'Soy psicóloga y acompaño a adultos, parejas y adolescentes que están pasando por momentos difíciles o que simplemente quieren entenderse mejor.',
     'Trabajo desde un enfoque cognitivo-conductual, integrando herramientas prácticas para el día a día con un espacio cálido, sin juicios, donde puedas hablar con tranquilidad.',
   ],
   credentials: [
     'Psicóloga · Universidad (ficticia)',
-    'Especialista en psicología clínica',
     'Formación en terapia de pareja',
   ],
 }

@@ -31,7 +31,7 @@ export default function App() {
         <p className="crisis">{site.crisis}</p>
         <div className="foot-row">
           <span>© {new Date().getFullYear()} {site.name} · Sitio de demostración, datos y fotos de ejemplo (Unsplash)</span>
-          <a href="https://duvan-martinez.vercel.app" target="_blank" rel="noreferrer">Hecho por Duvan Martínez</a>
+          <a href="https://duvan-martinez.vercel.app/" target="_blank" rel="noreferrer">Sitio web por DM Software</a>
         </div>
       </footer>
       <a className="fab" href={waLink(hello)} target="_blank" rel="noreferrer" aria-label="Escríbeme por WhatsApp"><WhatsIcon /></a>
