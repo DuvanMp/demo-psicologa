@@ -12,7 +12,7 @@ export const site = {
   whatsapp: '573103156385',
   phoneDisplay: '+57 310 315 6385',
   email: 'sfernandacd@gmail.com',
-  instagram: 'https://www.instagram.com/psicologasilviacelis_/',
+  instagram: 'https://www.instagram.com/psi.silviacelis/',
   city: { es: 'Atención virtual desde Colombia', en: 'Online sessions from Colombia' },
   hours: {
     es: ['Lunes a viernes · 7:00 a. m. – 8:00 p. m.', 'Sábados · 8:00 a. m. – 1:00 p. m.'],

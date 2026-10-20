@@ -166,6 +166,9 @@ legend { font-family: var(--display); font-size: 1.25rem; color: var(--ink); mar
 .contact-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; }
 .contact h3 { font-size: 1.125rem; margin-bottom: 10px; }
 .contact a { color: var(--ink); text-underline-offset: 4px; }
+.contact-link { display: flex; align-items: center; gap: 10px; }
+.contact-link + .contact-link { margin-top: 6px; }
+.contact-link svg { flex: none; color: var(--accent); }
 .footer { border-top: 1px solid var(--line); padding: 26px max(16px, (100% - 1180px) / 2); font-size: .8125rem; color: var(--muted); display: grid; gap: 10px; }
 .crisis { color: var(--text); font-weight: 500; }
 .foot-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
