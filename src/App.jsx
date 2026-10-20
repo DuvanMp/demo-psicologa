@@ -1,12 +1,34 @@
 import { useEffect, useMemo, useState } from 'react'
 import { site } from './config.js'
-import { areas, feelings, steps, about, faq, quote } from './content.js'
+import { content } from './content.js'
 import { img } from './images.js'
 
 const waLink = (text) => `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`
-const hello = 'Hola, quisiera información sobre la terapia.'
+const locales = { es: 'es-CO', en: 'en-US' }
+
+// Idioma: el que la persona eligió antes; si no, el del dispositivo.
+function useLang() {
+  const [lang, setLang] = useState(() => {
+    try {
+      const saved = localStorage.getItem('lang')
+      if (saved === 'es' || saved === 'en') return saved
+    } catch {}
+    return navigator.language?.toLowerCase().startsWith('es') ? 'es' : 'en'
+  })
+  useEffect(() => {
+    document.documentElement.lang = lang
+    document.title = `${site.name} · ${site.title[lang]}`
+  }, [lang])
+  const choose = (l) => {
+    setLang(l)
+    try { localStorage.setItem('lang', l) } catch {}
+  }
+  return [lang, choose]
+}
 
 export default function App() {
+  const [lang, setLang] = useLang()
+  const t = content[lang]
   const [area, setArea] = useState('')
   const goBook = (id) => {
     if (id) setArea(id)
@@ -14,32 +36,32 @@ export default function App() {
   }
   return (
     <>
-      <Header />
+      <Header t={t} lang={lang} setLang={setLang} />
       <main>
-        <Hero onBook={() => goBook()} />
-        <Feelings />
-        <About />
-        <Areas onBook={goBook} />
-        <Online />
-        <Steps />
-        <Quote />
-        <Booking area={area} setArea={setArea} />
-        <Faq />
-        <Contact />
+        <Hero t={t} lang={lang} onBook={() => goBook()} />
+        <Feelings t={t} />
+        <About t={t} lang={lang} />
+        <Areas t={t} onBook={goBook} />
+        <Online t={t} lang={lang} />
+        <Steps t={t} />
+        <Quote t={t} />
+        <Booking t={t} lang={lang} area={area} setArea={setArea} />
+        <Faq t={t} />
+        <Contact t={t} lang={lang} />
       </main>
       <footer className="footer">
-        <p className="crisis">{site.crisis}</p>
+        <p className="crisis">{site.crisis[lang]}</p>
         <div className="foot-row">
-          <span>© {new Date().getFullYear()} {site.name} · Sitio de demostración, datos y fotos de ejemplo (Unsplash)</span>
-          <a href="https://duvan-martinez.vercel.app/" target="_blank" rel="noreferrer">Sitio web por DM Software</a>
+          <span>© {new Date().getFullYear()} {site.name} · {t.demo}</span>
+          <a href="https://duvan-martinez.vercel.app/" target="_blank" rel="noreferrer">{t.credit}</a>
         </div>
       </footer>
-      <a className="fab" href={waLink(hello)} target="_blank" rel="noreferrer" aria-label="Escríbeme por WhatsApp"><WhatsIcon /></a>
+      <a className="fab" href={waLink(t.hello)} target="_blank" rel="noreferrer" aria-label={t.writeMeWa}><WhatsIcon /></a>
     </>
   )
 }
 
-function Header() {
+function Header({ t, lang, setLang }) {
   const [open, setOpen] = useState(false)
   const [solid, setSolid] = useState(false)
   useEffect(() => {
@@ -48,7 +70,6 @@ function Header() {
     window.addEventListener('scroll', on, { passive: true })
     return () => window.removeEventListener('scroll', on)
   }, [])
-  const links = [['#sobre-mi', 'Sobre mí'], ['#como-te-ayudo', 'Cómo te ayudo'], ['#terapia-virtual', 'Terapia virtual'], ['#preguntas', 'Preguntas']]
   return (
     <header className={`header ${solid || open ? 'solid' : ''}`}>
       <div className="wrap header-inner">
@@ -57,16 +78,23 @@ function Header() {
           <span>{site.name}</span>
         </a>
         <nav className={open ? 'nav open' : 'nav'} aria-label="Principal">
-          {links.map(([h, l]) => <a key={h} href={h} onClick={() => setOpen(false)}>{l}</a>)}
-          <a href="#agendar" className="btn btn-small" onClick={() => setOpen(false)}>Agendar</a>
+          {t.nav.map(([h, l]) => <a key={h} href={h} onClick={() => setOpen(false)}>{l}</a>)}
+          <a href="#agendar" className="btn btn-small" onClick={() => setOpen(false)}>{t.book}</a>
         </nav>
-        <button className="menu" aria-expanded={open} aria-label="Menú" onClick={() => setOpen(!open)}><span /><span /></button>
+        <div className="header-tools">
+          <div className="lang" role="group" aria-label="Idioma / Language">
+            {['es', 'en'].map((l) => (
+              <button key={l} type="button" aria-pressed={lang === l} onClick={() => setLang(l)}>{l.toUpperCase()}</button>
+            ))}
+          </div>
+          <button className="menu" aria-expanded={open} aria-label={t.menu} onClick={() => setOpen(!open)}><span /><span /></button>
+        </div>
       </div>
     </header>
   )
 }
 
-function Hero({ onBook }) {
+function Hero({ t, lang, onBook }) {
   const [i, setI] = useState(0)
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
@@ -80,34 +108,34 @@ function Hero({ onBook }) {
       </div>
       <div className="hero-shade" aria-hidden="true" />
       <div className="wrap hero-content">
-        <p className="hero-kicker">{site.title} · Terapia virtual</p>
-        <h1>Un lugar seguro para hablar de lo que sientes.</h1>
-        <p className="lead">Psicoterapia por videollamada para adultos, parejas y adolescentes. Con calma, sin juicios y a tu ritmo, estés donde estés.</p>
+        <p className="hero-kicker">{site.title[lang]} · {t.hero.kicker}</p>
+        <h1>{t.hero.title}</h1>
+        <p className="lead">{t.hero.lead}</p>
         <div className="actions">
-          <button className="btn btn-light" onClick={onBook}>Agendar primera sesión</button>
-          <a className="btn btn-outline-light" href={waLink(hello)} target="_blank" rel="noreferrer"><WhatsIcon /> Escríbeme</a>
+          <button className="btn btn-light" onClick={onBook}>{t.hero.cta}</button>
+          <a className="btn btn-outline-light" href={waLink(t.hello)} target="_blank" rel="noreferrer"><WhatsIcon /> {t.writeMe}</a>
         </div>
-        <p className="hero-note">Primera llamada de {site.prices.first}</p>
+        <p className="hero-note">{t.hero.note} {site.prices.first[lang]}</p>
       </div>
     </section>
   )
 }
 
-function Feelings() {
+function Feelings({ t }) {
   return (
     <section className="feelings">
       <div className="wrap">
-        <h2>¿Te suena familiar?</h2>
+        <h2>{t.feelingsTitle}</h2>
         <ul>
-          {feelings.map((f) => <li key={f}>“{f}”</li>)}
+          {t.feelings.map((f) => <li key={f}>“{f}”</li>)}
         </ul>
-        <p>Si alguna de estas frases te describe, no estás solo. Hablarlo es el primer paso.</p>
+        <p>{t.feelingsNote}</p>
       </div>
     </section>
   )
 }
 
-function About() {
+function About({ t, lang }) {
   return (
     <section id="sobre-mi" className="section">
       <div className="wrap about">
@@ -115,11 +143,11 @@ function About() {
           <img src={img.portrait} alt={site.name} loading="lazy" />
         </figure>
         <div>
-          <h2>Hola, soy {site.firstName}</h2>
-          {about.body.map((p) => <p key={p} className="body-lg">{p}</p>)}
+          <h2>{t.aboutHi} {site.firstName}</h2>
+          {t.about.body.map((p) => <p key={p} className="body-lg">{p}</p>)}
           <ul className="checks">
-            {about.credentials.map((c) => <li key={c}>{c}</li>)}
-            <li>{site.license}</li>
+            {t.about.credentials.map((c) => <li key={c}>{c}</li>)}
+            <li>{site.license[lang]}</li>
           </ul>
         </div>
       </div>
@@ -127,23 +155,23 @@ function About() {
   )
 }
 
-function Areas({ onBook }) {
+function Areas({ t, onBook }) {
   return (
     <section id="como-te-ayudo" className="section section-soft">
       <div className="wrap">
         <div className="section-head">
-          <h2>Cómo te puedo ayudar</h2>
-          <p>Cada proceso es distinto. Estos son algunos de los motivos por los que más me consultan.</p>
+          <h2>{t.areasTitle}</h2>
+          <p>{t.areasLead}</p>
         </div>
         <ul className="area-grid">
-          {areas.map((a) => (
+          {t.areas.map((a) => (
             <li key={a.id}>
-              <button className="area-card" onClick={() => onBook(a.id)} aria-label={`Agendar: ${a.name}`}>
+              <button className="area-card" onClick={() => onBook(a.id)} aria-label={`${t.bookSession}: ${a.name}`}>
                 <img src={img.areas[a.id]} alt="" loading="lazy" />
                 <div className="area-body">
                   <h3>{a.name}</h3>
                   <p>{a.desc}</p>
-                  <span className="link">Agendar sesión</span>
+                  <span className="link">{t.bookSession}</span>
                 </div>
               </button>
             </li>
@@ -154,20 +182,21 @@ function Areas({ onBook }) {
   )
 }
 
-function Online() {
+function Online({ t, lang }) {
   const p = site.prices
+  const o = t.online
   return (
     <section id="terapia-virtual" className="section">
       <div className="wrap online">
-        <img src={img.online} alt="Persona en una sesión de terapia por videollamada desde su casa" loading="lazy" />
+        <img src={img.online} alt={o.alt} loading="lazy" />
         <div>
-          <h2>Terapia desde tu casa</h2>
-          <p className="body-lg">Sin tráfico ni salas de espera. Te conectas desde un lugar privado donde te sientas cómodo, por Google Meet o Zoom. También atiendo a colombianos que viven en el exterior.</p>
+          <h2>{o.title}</h2>
+          <p className="body-lg">{o.body}</p>
           {(p.individual || p.couple) && (
             <dl className="prices">
-              {p.individual && <><dt>Sesión individual · 50 min</dt><dd>{p.individual}</dd></>}
-              {p.couple && <><dt>Sesión de pareja · 60 min</dt><dd>{p.couple}</dd></>}
-              <dt>Llamada inicial · 15 min</dt><dd>Sin costo</dd>
+              {p.individual && <><dt>{o.individual}</dt><dd>{p.individual[lang]}</dd></>}
+              {p.couple && <><dt>{o.couple}</dt><dd>{p.couple[lang]}</dd></>}
+              <dt>{o.first}</dt><dd>{o.free}</dd>
             </dl>
           )}
         </div>
@@ -176,16 +205,16 @@ function Online() {
   )
 }
 
-function Steps() {
+function Steps({ t }) {
   return (
     <section className="section section-soft">
       <div className="wrap">
-        <h2 className="center">Empezar es sencillo</h2>
+        <h2 className="center">{t.stepsTitle}</h2>
         <ol className="steps">
-          {steps.map(([t, d], n) => (
-            <li key={t}>
+          {t.steps.map(([s, d], n) => (
+            <li key={s}>
               <span className="step-n" aria-hidden="true">{n + 1}</span>
-              <h3>{t}</h3>
+              <h3>{s}</h3>
               <p>{d}</p>
             </li>
           ))}
@@ -195,17 +224,19 @@ function Steps() {
   )
 }
 
-function Quote() {
+function Quote({ t }) {
   return (
     <section className="quote">
       <img src={img.room} alt="" loading="lazy" />
       <div className="quote-shade" />
-      <blockquote className="wrap">{quote}</blockquote>
+      <blockquote className="wrap">{t.quote}</blockquote>
     </section>
   )
 }
 
-function Booking({ area, setArea }) {
+function Booking({ t, lang, area, setArea }) {
+  const b = t.booking
+  const loc = locales[lang]
   const [day, setDay] = useState(null)
   const [time, setTime] = useState('')
   const [name, setName] = useState('')
@@ -225,13 +256,13 @@ function Booking({ area, setArea }) {
     return out
   }, [])
   const slots = day ? (day.getDay() === 6 ? site.slots.saturday : site.slots.weekday) : site.slots.weekday
-  const a = areas.find((x) => x.id === area)
-  const dayLabel = day?.toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long' })
+  const a = t.areas.find((x) => x.id === area)
+  const dayLabel = day?.toLocaleDateString(loc, { weekday: 'long', day: 'numeric', month: 'long' })
 
   const confirm = () => {
-    if (!day || !time || !name.trim() || !phone.trim()) return setError('Elige día y hora, y escribe tu nombre y celular.')
+    if (!day || !time || !name.trim() || !phone.trim()) return setError(b.error)
     setError('')
-    const msg = `Hola ${site.firstName}, quiero agendar ${first ? 'la llamada inicial gratuita' : 'una sesión'}.\n\n${a ? `Tema: ${a.name}\n` : ''}Día: ${dayLabel}\nHora: ${time}\nNombre: ${name}\nCelular: ${phone}`
+    const msg = b.msg({ name: site.firstName, first, topic: a?.name, day: dayLabel, time, client: name, phone })
     window.open(waLink(msg), '_blank', 'noopener')
   }
 
@@ -239,70 +270,70 @@ function Booking({ area, setArea }) {
     <section id="agendar" className="section">
       <div className="wrap">
         <div className="section-head">
-          <h2>Agenda tu espacio</h2>
-          <p>Elige el día y la hora que te queden mejor. Te confirmo por WhatsApp. No necesitas contarme nada por aquí.</p>
+          <h2>{b.title}</h2>
+          <p>{b.lead}</p>
         </div>
         <div className="booking">
           <div className="booking-steps">
             <fieldset>
-              <legend>¿Es tu primera vez conmigo?</legend>
+              <legend>{b.firstQ}</legend>
               <div className="chips">
-                <button type="button" aria-pressed={first} onClick={() => setFirst(true)}>Sí, quiero la llamada gratuita</button>
-                <button type="button" aria-pressed={!first} onClick={() => setFirst(false)}>Ya soy paciente</button>
+                <button type="button" aria-pressed={first} onClick={() => setFirst(true)}>{b.firstYes}</button>
+                <button type="button" aria-pressed={!first} onClick={() => setFirst(false)}>{b.firstNo}</button>
               </div>
             </fieldset>
             <fieldset>
-              <legend>Tema (opcional)</legend>
+              <legend>{b.topic}</legend>
               <div className="chips">
-                {areas.map((x) => (
+                {t.areas.map((x) => (
                   <button key={x.id} type="button" aria-pressed={area === x.id} onClick={() => setArea(area === x.id ? '' : x.id)}>{x.name}</button>
                 ))}
               </div>
             </fieldset>
             <fieldset>
-              <legend>Día</legend>
+              <legend>{b.day}</legend>
               <div className="days">
                 {days.map((d) => {
                   const sunday = d.getDay() === 0
                   const active = day && d.getTime() === day.getTime()
                   return (
                     <button key={d.toISOString()} type="button" disabled={sunday} aria-pressed={!!active} onClick={() => { setDay(d); setTime('') }}>
-                      <span>{d.toLocaleDateString('es-CO', { weekday: 'short' })}</span>
+                      <span>{d.toLocaleDateString(loc, { weekday: 'short' })}</span>
                       <strong>{d.getDate()}</strong>
-                      <span>{d.toLocaleDateString('es-CO', { month: 'short' })}</span>
+                      <span>{d.toLocaleDateString(loc, { month: 'short' })}</span>
                     </button>
                   )
                 })}
               </div>
             </fieldset>
             <fieldset disabled={!day}>
-              <legend>Hora</legend>
+              <legend>{b.time}</legend>
               <div className="chips">
                 {slots.map((s) => <button key={s} type="button" aria-pressed={time === s} onClick={() => setTime(s)}>{s}</button>)}
               </div>
             </fieldset>
             <fieldset>
-              <legend>Tus datos</legend>
+              <legend>{b.you}</legend>
               <div className="row">
-                <label className="field"><span>Nombre</span><input value={name} onChange={(e) => setName(e.target.value)} autoComplete="given-name" /></label>
-                <label className="field"><span>Celular</span><input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} autoComplete="tel" /></label>
+                <label className="field"><span>{b.name}</span><input value={name} onChange={(e) => setName(e.target.value)} autoComplete="given-name" /></label>
+                <label className="field"><span>{b.phone}</span><input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} autoComplete="tel" /></label>
               </div>
             </fieldset>
           </div>
           <aside className="card summary" aria-live="polite">
             <div className="summary-who">
               <img src={img.portrait} alt="" />
-              <div><strong>{site.name}</strong><span>{site.title}</span></div>
+              <div><strong>{site.name}</strong><span>{site.title[lang]}</span></div>
             </div>
             <dl>
-              <dt>Tipo</dt><dd>{first ? 'Llamada inicial gratuita' : 'Sesión'}</dd>
-              <dt>Día</dt><dd className="cap">{dayLabel || '—'}</dd>
-              <dt>Hora</dt><dd>{time || '—'}</dd>
-              <dt>Modalidad</dt><dd>Videollamada</dd>
+              <dt>{b.type}</dt><dd>{first ? b.typeFirst : b.typeSession}</dd>
+              <dt>{b.day}</dt><dd className="cap">{dayLabel || '—'}</dd>
+              <dt>{b.time}</dt><dd>{time || '—'}</dd>
+              <dt>{b.mode}</dt><dd>{b.modeValue}</dd>
             </dl>
             {error && <p className="error" role="alert">{error}</p>}
-            <button className="btn btn-wa" type="button" onClick={confirm}><WhatsIcon /> Confirmar por WhatsApp</button>
-            <p className="hint">{site.crisis}</p>
+            <button className="btn btn-wa" type="button" onClick={confirm}><WhatsIcon /> {b.confirm}</button>
+            <p className="hint">{site.crisis[lang]}</p>
           </aside>
         </div>
       </div>
@@ -310,13 +341,13 @@ function Booking({ area, setArea }) {
   )
 }
 
-function Faq() {
+function Faq({ t }) {
   return (
     <section id="preguntas" className="section section-soft">
       <div className="wrap narrow">
-        <h2>Preguntas frecuentes</h2>
+        <h2>{t.faqTitle}</h2>
         <div className="faq">
-          {faq.map(([q, a]) => (
+          {t.faq.map(([q, a]) => (
             <details key={q}><summary>{q}</summary><p>{a}</p></details>
           ))}
         </div>
@@ -325,21 +356,21 @@ function Faq() {
   )
 }
 
-function Contact() {
+function Contact({ t, lang }) {
   return (
     <section className="section contact">
       <div className="wrap contact-grid">
         <div>
-          <h2>Aquí estoy cuando lo necesites</h2>
-          <p className="body-lg">{site.city}</p>
+          <h2>{t.contactTitle}</h2>
+          <p className="body-lg">{site.city[lang]}</p>
         </div>
         <div>
-          <h3>Horario</h3>
-          {site.hours.map((h) => <p key={h}>{h}</p>)}
+          <h3>{t.hoursTitle}</h3>
+          {site.hours[lang].map((h) => <p key={h}>{h}</p>)}
         </div>
         <div>
-          <h3>Contacto</h3>
-          <p><a href={waLink(hello)} target="_blank" rel="noreferrer">{site.phoneDisplay}</a></p>
+          <h3>{t.contact}</h3>
+          <p><a href={waLink(t.hello)} target="_blank" rel="noreferrer">{site.phoneDisplay}</a></p>
           <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
           <p><a href={site.instagram} target="_blank" rel="noreferrer">Instagram</a></p>
         </div>

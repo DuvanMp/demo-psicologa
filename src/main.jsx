@@ -8,6 +8,5 @@ const root = document.documentElement.style
 root.setProperty('--ink', site.theme.ink)
 root.setProperty('--accent', site.theme.accent)
 root.setProperty('--soft', site.theme.soft)
-document.title = `${site.name} · Psicóloga`
 
 createRoot(document.getElementById('root')).render(<App />)
